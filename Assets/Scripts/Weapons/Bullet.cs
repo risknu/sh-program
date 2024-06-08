@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.U2D;
 
 using Random = UnityEngine.Random;
 
@@ -17,6 +12,7 @@ public class Bullet : MonoBehaviour
     public int critDamage = 3;
 
     [Header("Explosion")]
+    public GameObject hitSoundPrefab;
     public float explosionRadius = 5f;
     public float explosionForce = 700f;
     public LayerMask explosionLayers;
@@ -41,9 +37,9 @@ public class Bullet : MonoBehaviour
         {
             int randomInt = Random.Range(0, 100);
             if (randomInt < 85)
-                col.GetComponent<Enemy>().TakeDamage(damage);
+                col.GetComponent<Enemy>().TakeDamage(damage, transform.position);
             else
-                col.GetComponent<Enemy>().TakeDamage(critDamage);
+                col.GetComponent<Enemy>().TakeDamage(critDamage, transform.position);
         }
         if (!col.CompareTag("Player"))
             DestroyBullet();
@@ -74,6 +70,10 @@ public class Bullet : MonoBehaviour
 
     public void DestroyBullet()
     {
+        GameObject audioSource = Instantiate(hitSoundPrefab, transform.position, transform.rotation);
+        audioSource.GetComponent<AudioSource>().Play();
+        Destroy(audioSource, audioSource.GetComponent<AudioSource>().clip.length);
+
         Instantiate(shootParticleObject, transform.position, Quaternion.identity);
         Explode();
         Destroy(gameObject);

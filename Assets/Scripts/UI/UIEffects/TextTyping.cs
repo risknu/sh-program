@@ -5,11 +5,13 @@ using UnityEngine.UI;
 public class TextTyping : MonoBehaviour
 {
     [Header("Typing Text Settings")]
-    public float typingSpeed = 0.05f;
+    private float typingSpeed = 0.05f;
+    private float typingSpeedNow = 0.05f;
     public string fullText;
     public float startDelay = 0f;
     public bool startEnter = false;
     public TextTyping nextText;
+    public GameObject typingSoundPrefab;
 
     private string currentText = "";
     private Text uiText;
@@ -29,7 +31,19 @@ public class TextTyping : MonoBehaviour
         {
             currentText = fullText.Substring(0, i + 1);
             uiText.text = currentText;
-            yield return new WaitForSeconds(typingSpeed);
+
+            GameObject audioSource = Instantiate(typingSoundPrefab, transform.position, transform.rotation);
+            audioSource.GetComponent<AudioSource>().Play();
+            Destroy(audioSource, audioSource.GetComponent<AudioSource>().clip.length);
+
+            if (fullText[i] == '.' || fullText[i] == '-' || fullText[i] == '?' || fullText[i] == '!')
+                typingSpeedNow = typingSpeed + 0.2f;
+            else if (fullText[i] == ',' || fullText[i] == ':' || fullText[i] == ')')
+                typingSpeedNow = typingSpeed + 0.1f;
+            else
+                typingSpeedNow = typingSpeed;
+
+            yield return new WaitForSeconds(typingSpeedNow);
         }
 
         if (nextText != null)

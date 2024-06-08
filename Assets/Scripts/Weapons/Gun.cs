@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
@@ -9,6 +7,9 @@ public class Gun : MonoBehaviour
     private float timeBtwShots;
     public int startAmmo = 512;
     public float startTimeBtwShots;
+
+    [Header("Sounds")]
+    public GameObject shootSoundPrefab;
 
     [Header("Gun Objects")]
     public GameObject cameraObject;
@@ -49,14 +50,20 @@ public class Gun : MonoBehaviour
         float zRotation = transform.rotation.eulerAngles.z;
         if (zRotation > 180) zRotation -= 360;
 
+        Vector3 newScale = transform.localScale;
         if (zRotation < 90 && zRotation > -90)
-            spriteRenderer.flipY = false;
+            newScale.y = Mathf.Abs(newScale.y);
         else
-            spriteRenderer.flipY = true;
+            newScale.y = -Mathf.Abs(newScale.y);
+        transform.localScale = newScale;
     }
 
     public void Shoot()
     {
+        GameObject audioSource = Instantiate(shootSoundPrefab, transform.position, transform.rotation);
+        audioSource.GetComponent<AudioSource>().Play();
+        Destroy(audioSource, audioSource.GetComponent<AudioSource>().clip.length);
+
         Instantiate(shootParticleObject, shotPoint.position, transform.rotation);
         Instantiate(bulletObject, shotPoint.position, transform.rotation);
     }

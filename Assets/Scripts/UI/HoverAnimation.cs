@@ -8,6 +8,7 @@ public class HoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public float scaleAmount = 1.1f;
     public float animationDuration = 0.2f;
     public GameObject showDescription;
+    public AudioSource enterSound;
 
     private Vector3 originalScale;
     private bool isHovering = false;
@@ -37,6 +38,7 @@ public class HoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        enterSound.Play();
         isHovering = true;
     }
 

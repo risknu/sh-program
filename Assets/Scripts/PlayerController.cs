@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Playables;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +8,11 @@ public class PlayerController : MonoBehaviour
     public float playerJumpForce = 7f;
     public float checkRadius = 0.2f;
     public string ability = "null";
+
+    [Header("Player Sounds")]
+    public AudioSource[] walkSound;
+    public AudioSource jumpSound;
+    public AudioSource landSound;
 
     [Header("Player DEBUG")]
     public float moveInput = 0f;
@@ -23,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Objects/Particles")]
     public GameObject landParticleObject;
-    public Transform feetPos;
+    public Transform[] feetPos;
     public LayerMask whatIsGround;
 
     [Header("Components")]
@@ -74,10 +77,11 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+        isGrounded = CheckGroundOn();
 
         if (isGrounded == true && Input.GetKeyDown(KeyCode.Space))
         {
+            jumpSound.Play();
             rb.velocity = Vector2.up * playerJumpForce;
             animator.SetTrigger("takeOf");
         }
@@ -92,6 +96,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public bool CheckGroundOn()
+    {
+        foreach (var foot in feetPos)
+        {
+            if (Physics2D.OverlapCircle(foot.position, checkRadius, whatIsGround))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void PlayWalkSound()
+    {
+        int rand = Random.Range(0, walkSound.Length);
+        walkSound[rand].Play();
+    }
+
     public void Flip(float moveInput)
     {
         bool newFacingRight = moveInput > 0;
@@ -102,9 +124,7 @@ public class PlayerController : MonoBehaviour
             float targetAngle = facingRight ? 0f : 180f;
 
             if (flipCoroutine != null)
-            {
                 StopCoroutine(flipCoroutine);
-            }
 
             flipCoroutine = StartCoroutine(RotateSmoothly(targetAngle));
         }
@@ -123,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
     public void landParticle()
     {
-        Instantiate(landParticleObject, feetPos.position, Quaternion.identity);
+        landSound.Play();
+        Instantiate(landParticleObject, feetPos[0].position, Quaternion.identity);
     }
 }

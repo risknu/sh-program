@@ -102,6 +102,8 @@ MonoBehaviour:
   lifetime: 10
   distance: 50
   damage: 1
+  critDamage: 3
+  hitSoundPrefab: {fileID: 1221881557343749379, guid: 4447d75d0f5ae2a408bf378c565d12a2, type: 3}
   explosionRadius: 0.57
   explosionForce: 700
   explosionLayers:

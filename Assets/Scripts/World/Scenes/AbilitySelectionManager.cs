@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,10 +8,12 @@ public class AbilitySelectionManager : MonoBehaviour
     public Animator animator;
     public static string selectedAbility;
     public string goToScene = "SampleScene";
+    public AudioSource playGame;
 
     public void SelectAbility(string ability)
     {
         selectedAbility = ability;
+        playGame.Play();
         StartCoroutine(LoadLevel(goToScene));
     }
 
