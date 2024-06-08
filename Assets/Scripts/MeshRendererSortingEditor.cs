@@ -40,9 +40,7 @@ public class MeshRendererSortingEditor : Editor
         var layers = SortingLayer.layers;
         var names = layers.Select(l => l.name).ToArray();
         if (!SortingLayer.IsValid(layerID))
-        {
             layerID = layers[0].id;
-        }
         var layerValue = SortingLayer.GetLayerValueFromID(layerID);
         var newLayerValue = EditorGUILayout.Popup("Sorting Layer", layerValue, names);
         return layers[newLayerValue].id;

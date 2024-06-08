@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3545158654445017546}
   - component: {fileID: 8698562545469064971}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: WhatBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45356628, y: 0.1156594, z: 4.0317}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 4.0317}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: -1748506359
   m_SortingLayer: 4
   m_SortingOrder: 4
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.9137255, g: 0.76862746, b: 0.41568628, a: 1}
+  m_Sprite: {fileID: 21300000, guid: a7408e81aef5444478b991fb286f7227, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   lifetime: 10
   distance: 50
   damage: 1
+  critDamage: 3
   explosionRadius: 0.57
   explosionForce: 700
   explosionLayers:
@@ -110,7 +111,7 @@ MonoBehaviour:
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 72
-  shootParticleObject: {fileID: 1162985463534652505, guid: 99f9a5440a20deb498b9ba5849f2ad57, type: 3}
+  shootParticleObject: {fileID: 1162985463534652505, guid: fe8d7f334f1a58843804d551e46f4632, type: 3}
 --- !u!61 &8698562545469064971
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +148,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.09, y: 1.09}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

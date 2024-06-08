@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,11 +9,17 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 5f;
     public float playerJumpForce = 7f;
     public float checkRadius = 0.2f;
+    public string ability = "null";
 
     [Header("Player DEBUG")]
     public float moveInput = 0f;
     public bool facingRight = true;
     public bool isGrounded = false;
+
+    [Header("Guns")]
+    public GameObject normalGun;
+    public GameObject mcGun;
+    public GameObject nullGun;
 
     [Header("Objects/Particles")]
     public GameObject landParticleObject;
@@ -28,8 +35,17 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
+        if (ability == "null")
+            ability = AbilitySelectionManager.selectedAbility;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (ability == "ForwardCard")
+            normalGun.SetActive(true);
+        else if (ability == "McCard")
+            mcGun.SetActive(true);
+        else if (ability == "NullCard")
+            nullGun.SetActive(true);
     }
 
     public void FixedUpdate()
