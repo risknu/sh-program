@@ -5,6 +5,7 @@ public class DamageText : MonoBehaviour
     [Header("Text Settings/Objects")]
     public float damage;
     public TextMesh textMesh;
+    public GameObject parentObject;
 
     private void Start()
     {
@@ -14,6 +15,6 @@ public class DamageText : MonoBehaviour
 
     public void OnAnimationOver()
     {
-        Destroy(gameObject);
+        Destroy(parentObject);
     }
 }

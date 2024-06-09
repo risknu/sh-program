@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     public LayerMask explosionLayers;
 
     [Header("Bullet Objects")]
+    public GameObject hitParticleEffect;
     public LayerMask whatIsSolid;
     public GameObject shootParticleObject;
 
@@ -41,6 +42,10 @@ public class Bullet : MonoBehaviour
             else
                 col.GetComponent<Enemy>().TakeDamage(critDamage, transform.position);
         }
+        
+        if (col.CompareTag("Ground"))
+            Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
+
         if (!col.CompareTag("Player"))
             DestroyBullet();
     }

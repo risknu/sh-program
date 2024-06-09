@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   textMesh: {fileID: 0}
+  parentObject: {fileID: 7522352351733956220}
 --- !u!95 &7475024120364404688
 Animator:
   serializedVersion: 5
