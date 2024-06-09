@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Guns")]
     public GameObject normalGun;
+    public GameObject[] specialNormalObjects;
     public GameObject mcGun;
+    public GameObject[] specialMcObjects;
     public GameObject nullGun;
+    public GameObject[] specialNullObjects;
 
     [Header("Objects/Particles")]
     public GameObject landParticleObject;
@@ -44,11 +47,23 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         if (ability == "ForwardCard")
+        {
             normalGun.SetActive(true);
+            foreach (var element in specialNormalObjects)
+                element.SetActive(true);
+        }
         else if (ability == "McCard")
+        {
             mcGun.SetActive(true);
+            foreach (var element in specialMcObjects)
+                element.SetActive(true);
+        }
         else if (ability == "NullCard")
+        {
             nullGun.SetActive(true);
+            foreach (var element in specialNullObjects)
+                element.SetActive(true);
+        }
     }
 
     public void FixedUpdate()

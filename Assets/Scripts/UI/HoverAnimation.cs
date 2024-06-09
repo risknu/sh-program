@@ -23,6 +23,7 @@ public class HoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (isHovering)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, originalScale * scaleAmount, Time.deltaTime / animationDuration);
+            if (showDescription == null) return;
             Color newColor = showDescription.GetComponent<Text>().color;
             newColor.a = Mathf.Lerp(showDescription.GetComponent<Text>().color.a, 1f, Time.deltaTime / animationDuration);
             showDescription.GetComponent<Text>().color = newColor;
@@ -30,6 +31,7 @@ public class HoverAnimation : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else
         {
             transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime / animationDuration);
+            if (showDescription == null) return;
             Color newColor = showDescription.GetComponent<Text>().color;
             newColor.a = Mathf.Lerp(showDescription.GetComponent<Text>().color.a, 0f, Time.deltaTime / animationDuration);
             showDescription.GetComponent<Text>().color = newColor;

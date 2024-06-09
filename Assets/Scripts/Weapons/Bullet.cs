@@ -46,7 +46,7 @@ public class Bullet : MonoBehaviour
         if (col.CompareTag("Ground"))
             Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
 
-        if (!col.CompareTag("Player"))
+        if (!col.CompareTag("Player") && !col.CompareTag("Shell"))
             DestroyBullet();
     }
 
